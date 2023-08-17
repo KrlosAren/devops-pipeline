@@ -7,10 +7,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
-    - name: Checkout
+    - name : Checkout🚀 
       uses: actions/checkout@v3.5.3
-
-
-    - name: Download Code
-      run: ls -lhart
+      
+    - name: ListFiles🧨
+      run: ls -ltr
