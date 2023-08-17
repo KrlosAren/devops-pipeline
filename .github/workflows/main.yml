@@ -9,6 +9,14 @@ jobs:
     steps:
     - name : Checkout🚀 
       uses: actions/checkout@v3.5.3
-      
-    - name: ListFiles🧨
-      run: ls -ltr
+
+    - name: Setup JAVA JDK
+      uses: actions/setup-java@3.12.0
+      with:
+         java-version: '11'
+         distribution: 'zulu'
+
+    - name: Compile Gradle
+      run: |
+        chmod +x gradlew
+        ./gradlew build
