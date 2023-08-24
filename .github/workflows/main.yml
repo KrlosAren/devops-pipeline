@@ -1,22 +1,21 @@
 name: CI Java
 
-on:
-  workflow_call
+on: workflow_call
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-    - name : Checkout🚀 
-      uses: actions/checkout@v3.5.3
+      - name: Checkout🚀
+        uses: actions/checkout@v3.5.3
 
-    - name: Setup JAVA JDK
-      uses: actions/setup-java@v3.12.0
-      with:
-         java-version: '11'
-         distribution: 'zulu'
+      - name: Setup JAVA JDK
+        uses: actions/setup-java@v3.12.0
+        with:
+          java-version: '11'
+          distribution: 'zulu'
 
-    - name: Compile Gradle
-      run: |
-        chmod +x gradlew
-        ./gradlew build
+      - name: Compile Gradle
+        run: |
+          chmod +x gradlew
+          ./gradlew build
