@@ -19,3 +19,8 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew build
+
+      - name: Analisis SonarCloud🧨
+        run: |
+          chmod +x gradlew
+          ./gradlew sonar -Dsonar.token=${{ secrets.SONARCLOUD }}
