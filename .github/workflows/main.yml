@@ -21,9 +21,12 @@ jobs:
           ./gradlew build
 
       - name: Analisis SonarCloud🧨
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
         run: |
           chmod +x gradlew
-          ./gradlew build sonar --info
+          ./gradlew build sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+      
+      - name: Build Docker image
+        uses: docker/login-action@v2.2.0
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
