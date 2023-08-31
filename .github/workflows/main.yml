@@ -51,4 +51,6 @@ jobs:
         env:
           IMAGE_TAG: ${{ env.IMAGE_TAG }}
         run: |
+          echo ${{ env.IMAGE_TAG }}
+          docker image ls
           docker push krlosaren/petclinic:${{ env.IMAGE_TAG }}
