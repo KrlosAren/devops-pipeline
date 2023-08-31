@@ -9,6 +9,15 @@ jobs:
       - name: Checkout🚀
         uses: actions/checkout@v3.5.3
 
+      - name: Add SHORT_SHA and BRANCH_TAG env variables
+        run: |
+          echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+          echo "BRANCH_TAG=`echo ${GITHUB_REF##*/}`" >> $GITHUB_ENV
+
+      - name: Set IMAGE_TAG env variable
+        run: |
+          echo "IMAGE_TAG=`echo ${BRANCH_TAG}-${SHORT_SHA}`" >> $GITHUB_ENV
+      
       - name: Setup JAVA JDK
         uses: actions/setup-java@v3.12.0
         with:
@@ -25,8 +34,15 @@ jobs:
           chmod +x gradlew
           ./gradlew build sonar -Dsonar.token=${{ secrets.SONAR_TOKEN }}
       
-      - name: Build Docker image
+      - name: Docker login
         uses: docker/login-action@v2.2.0
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker build image
+        env:
+          IMAGE_NAME: ${{ github.repository }}
+          IMAGE_TAG: ${{ env.IMAGE_TAG }}
+        run: |
+          docker build -t krlosaren/pet-clinic:${{ env.IMAGE_TAG }} .
