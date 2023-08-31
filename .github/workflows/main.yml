@@ -53,4 +53,4 @@ jobs:
         run: |
           echo "image_tag=$IMAGEN_TAG" 
           docker image ls
-          docker push krlosaren/petclinic:${{ env.IMAGE_TAG }}
+          docker push krlosaren/pet-clinic:${{ env.IMAGE_TAG }}
